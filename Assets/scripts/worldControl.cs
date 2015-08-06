@@ -5,34 +5,42 @@ using UnityEngine.UI;
 public class worldControl : MonoBehaviour {
 	public GameObject box;
 	private Rigidbody boxPhys;
-	public float vertSpeed = 10f;
-	public float horizSpeed = 10f;
-	public float rotSpeed = 10f;
-
-	// Use this for initialization
+	public float tiltForce;
+	public float returnForce;
+	
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
+	void Update () {
+		Debug.Log (transform.eulerAngles.x);
+	}
+
 	void FixedUpdate () {
-		if (Input.GetKey(KeyCode.W)){
-			boxPhys.AddRelativeForce(0f,vertSpeed,0f);
+		if (transform.eulerAngles.x < 1f || transform.eulerAngles.x > 359f){
+			if (Input.GetKeyDown (KeyCode.W)){
+				boxPhys.AddTorque (tiltForce,0f,0f);
+			}
+			if(Input.GetKeyDown (KeyCode.S)){
+				boxPhys.AddTorque (-tiltForce,0f,0f);
+			}
 		}
-		if (Input.GetKey(KeyCode.S)){
-			boxPhys.AddRelativeForce(0f,-vertSpeed,0f);
+
+		//CLAMPING
+		float xRotation = transform.eulerAngles.x;
+		bool tiltedRight = false;
+		if (xRotation > 180) {
+			tiltedRight = true;
+			xRotation = 360 - xRotation;
 		}
-		if(Input.GetKey (KeyCode.A)){
-			boxPhys.AddRelativeForce(-horizSpeed,0,0f);
-		}
-		if(Input.GetKey (KeyCode.D)){
-			boxPhys.AddRelativeForce(horizSpeed,0f,0f);
-		}
-		if(Input.GetKey (KeyCode.Q)){
-			boxPhys.AddRelativeTorque(0f,0f,rotSpeed);
-		}
-		if(Input.GetKey (KeyCode.E)){
-			boxPhys.AddRelativeTorque(0f,0f,-rotSpeed);
-		}
+		xRotation = Mathf.Clamp(xRotation, 0, 10);
+		if (tiltedRight) 
+			xRotation = 360 - xRotation;
+		transform.rotation = Quaternion.Euler (new Vector3(xRotation,0f,0f)); 
+
+		//return tilt to 0
+		if (transform.eulerAngles.x > 1f && transform.eulerAngles.x < 180f)
+			boxPhys.AddTorque (-returnForce,0f,0f);
+		if(transform.eulerAngles.x < 359f && transform.eulerAngles.x > 180f)
+			boxPhys.AddTorque (returnForce,0f,0f);
 	}
 }
