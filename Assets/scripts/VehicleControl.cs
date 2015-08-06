@@ -3,8 +3,11 @@ using System.Collections;
 
 public class VehicleControl : MonoBehaviour {
 
-	public Rigidbody rbody;
-	public float moveStrength;
+	public Rigidbody p1body;
+	public Rigidbody p2body;
+	public float moveStrength = 300;
+	public bool twoCharacters = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -15,19 +18,38 @@ public class VehicleControl : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
-			rbody.AddForce(transform.forward * moveStrength);
+			p1body.AddForce(transform.forward * moveStrength);
+		}
+		if (Input.GetKeyDown(KeyCode.A))
+		{
+			p1body.AddForce(-transform.forward * moveStrength);
+		}
+		if (Input.GetKeyDown(KeyCode.O))
+		{
+			p1body.AddForce(-transform.right * moveStrength);
 		}
 		if (Input.GetKeyDown(KeyCode.P))
 		{
-			rbody.AddTorque(transform.right * moveStrength);
+			p1body.AddForce(transform.right * moveStrength);
 		}
-		if (Input.GetKeyDown(KeyCode.LeftShift))
+		if (twoCharacters)
 		{
-			rbody.AddTorque(transform.forward * moveStrength);
-		}
-		if (Input.GetKeyDown(KeyCode.RightShift))
-		{
-			rbody.AddForce(-transform.forward * moveStrength);
+			if (Input.GetKeyDown(KeyCode.F))
+			{
+				p2body.AddForce(transform.forward * moveStrength);
+			}
+			if (Input.GetKeyDown(KeyCode.V))
+			{
+				p2body.AddForce(-transform.forward * moveStrength);
+			}
+			if (Input.GetKeyDown(KeyCode.N))
+			{
+				p2body.AddForce(-transform.right * moveStrength);
+			}
+			if (Input.GetKeyDown(KeyCode.M))
+			{
+				p2body.AddForce(transform.right * moveStrength);
+			}
 		}
 	}
 }
