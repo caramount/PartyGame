@@ -47,10 +47,10 @@ public class worldControl : MonoBehaviour {
 				tilted = false;
 			}
 			if (Input.GetAxis ("Mouse ScrollWheel") > 0){
-				boxPhys.AddTorque (tiltForce,0f,0f,ForceMode.VelocityChange);
+				boxPhys.AddTorque (-tiltForce,0f,0f,ForceMode.VelocityChange);
 			}
 			if(Input.GetAxis ("Mouse ScrollWheel") < 0){
-				boxPhys.AddTorque (-tiltForce,0f,0f,ForceMode.VelocityChange);
+				boxPhys.AddTorque (tiltForce,0f,0f,ForceMode.VelocityChange);
 			}
 		}
 
