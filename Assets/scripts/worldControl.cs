@@ -5,34 +5,75 @@ using UnityEngine.UI;
 public class worldControl : MonoBehaviour {
 	public GameObject box;
 	private Rigidbody boxPhys;
-	public float vertSpeed = 10f;
-	public float horizSpeed = 10f;
-	public float rotSpeed = 10f;
-
-	// Use this for initialization
+	public float pushForce;
+	private int pushDelayCount = 0;
+	private bool tilted = false;
+	private Vector3 snowballDest;
+	public int pushDelayTime = 200;
+	public float tiltForce;
+	public float returnForce;
+	
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
+
+	void Update(){
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit rayHit = new RaycastHit();
+		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetMouseButtonDown(0)){
+			snowballDest = rayHit.point;
+			//check x or z position, if above a certain number, Destroy
+		}
+	}
+
 	void FixedUpdate () {
-		if (Input.GetKey(KeyCode.W)){
-			boxPhys.AddRelativeForce(0f,vertSpeed,0f);
+		//terrain shift
+		if(pushDelayCount > 0)
+			pushDelayCount++;
+		if(pushDelayCount == pushDelayTime)
+			pushDelayCount = 0;
+		if (Input.GetKeyDown(KeyCode.Mouse0)){
+			if(pushDelayCount == 0){
+				boxPhys.AddForce(-pushForce,0f,0f);
+				pushDelayCount++;
+			}
+		}	
+
+		//tilt if near-flat
+		if (transform.eulerAngles.x < .1f || transform.eulerAngles.x > 359.9f){
+			if (tilted){
+				transform.rotation = Quaternion.identity;
+				boxPhys.angularVelocity = Vector3.zero;
+				tilted = false;
+			}
+			if (Input.GetAxis ("Mouse ScrollWheel") > 0){
+				boxPhys.AddTorque (-tiltForce,0f,0f,ForceMode.VelocityChange);
+			}
+			if(Input.GetAxis ("Mouse ScrollWheel") < 0){
+				boxPhys.AddTorque (tiltForce,0f,0f,ForceMode.VelocityChange);
+			}
 		}
-		if (Input.GetKey(KeyCode.S)){
-			boxPhys.AddRelativeForce(0f,-vertSpeed,0f);
+
+		//clamp tilt
+		float xRotation = transform.eulerAngles.x;
+		bool tiltedRight = false;
+		if (xRotation > 180) {
+			tiltedRight = true;
+			xRotation = 360 - xRotation;
 		}
-		if(Input.GetKey (KeyCode.A)){
-			boxPhys.AddRelativeForce(-horizSpeed,0,0f);
+		xRotation = Mathf.Clamp(xRotation, 0f, 10f);
+		if (tiltedRight) 
+			xRotation = 360 - xRotation;
+		transform.rotation = Quaternion.Euler (new Vector3(xRotation,0f,0f)); 
+
+		//return tilt to 0
+		if (transform.eulerAngles.x > .1f && transform.eulerAngles.x < 180f){
+			boxPhys.AddTorque (-returnForce,0f,0f);
+			tilted = true;
 		}
-		if(Input.GetKey (KeyCode.D)){
-			boxPhys.AddRelativeForce(horizSpeed,0f,0f);
-		}
-		if(Input.GetKey (KeyCode.Q)){
-			boxPhys.AddRelativeTorque(0f,0f,rotSpeed);
-		}
-		if(Input.GetKey (KeyCode.E)){
-			boxPhys.AddRelativeTorque(0f,0f,-rotSpeed);
+		if(transform.eulerAngles.x < 359.9f && transform.eulerAngles.x > 180f){
+			boxPhys.AddTorque (returnForce,0f,0f);
+			tilted = true;
 		}
 	}
 }
