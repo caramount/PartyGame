@@ -1,27 +1,15 @@
 fileFormatVersion: 2
-guid: ad9a23430655b4a438fcde24675986a2
-timeCreated: 1438827867
+guid: c2cd96ded7c318f439ad4784c5e96de8
+timeCreated: 1438889865
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: rabbit
-    100004: snakeMonster
-    100006: bearBody
     400000: //RootNode
-    400002: rabbit
-    400004: snakeMonster
-    400006: bearBody
-    2300000: rabbit
-    2300002: snakeMonster
-    2300004: bearBody
-    3300000: rabbit
-    3300002: snakeMonster
-    3300004: bearBody
-    4300000: snakeMonster
-    4300002: rabbit
-    4300004: bearBody
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: donut1
     9500000: //RootNode
   materials:
     importMaterials: 1
