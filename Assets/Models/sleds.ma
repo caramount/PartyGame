@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: sleds.ma
-//Last modified: Sun, Aug 09, 2015 09:48:22 PM
+//Last modified: Mon, Aug 10, 2015 09:32:08 PM
 //Codeset: 1252
 requires maya "2016";
 currentUnit -l centimeter -a degree -t film;
@@ -13,8 +13,8 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "093E8754-4FEE-F70A-CB51-D99E01C1CCAA";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -17.390341223668962 15.04127586137567 8.9878629185422199 ;
-	setAttr ".r" -type "double3" -42.938352754684061 -421.79999999986546 6.7306095300278145e-015 ;
+	setAttr ".t" -type "double3" -22.918613566155869 9.8827819521270968 1.2027407872593336 ;
+	setAttr ".r" -type "double3" -26.738352754670071 -450.19999999984719 -9.1599974826149293e-013 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "718D8774-45AA-CD12-EC78-40BB96A28F9E";
 	setAttr -k off ".v" no;
@@ -960,7 +960,7 @@ createNode mesh -n "sleighShapeOrig" -p "sleigh";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 217 ".uvst[0].uvsp[0:216]" -type "float2" 0.375 0 0.42500001
+	setAttr -s 229 ".uvst[0].uvsp[0:228]" -type "float2" 0.375 0 0.42500001
 		 0 0.47500002 0 0.52500004 0 0.57500005 0 0.62500006 0 0.375 0.125 0.42500001 0.125
 		 0.47500002 0.125 0.52500004 0.125 0.57500005 0.125 0.62500006 0.125 0.375 0.25 0.42500001
 		 0.25 0.47500002 0.25 0.52500004 0.25 0.57500005 0.25 0.62500006 0.25 0.375 0.30000001
@@ -1003,7 +1003,9 @@ createNode mesh -n "sleighShapeOrig" -p "sleigh";
 		 0.875 0.25 0.82499999 0.25 0.77499998 0.25 0.72499996 0.25 0.67499995 0.25 0.62500006
 		 0.25 0.82499999 0 0.875 0 0.875 0 0.875 0.125 0.77499998 0 0.82499999 0 0.72499996
 		 0 0.67499995 0 0.62500006 0 0.62500006 0.125 0.875 0.25 0.82499999 0.25 0.77499998
-		 0.25 0.72499996 0.25 0.67499995 0.25 0.62500006 0.25;
+		 0.25 0.72499996 0.25 0.67499995 0.25 0.62500006 0.25 0.27500001 0 0.27500001 0 0.82499999
+		 0.25 0.82499999 0.25 0.77499998 0.25 0.77499998 0.25 0.72499996 0.25 0.72499996 0.25
+		 0.67499995 0.25 0.67499995 0.25 0.82499999 0 0.875 0;
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
@@ -1546,9 +1548,9 @@ createNode mesh -n "sleighShapeOrig" -p "sleigh";
 		f 3 -384 189 193
 		mu 0 3 140 124 138
 		f 3 163 384 -191
-		mu 0 3 125 108 139
+		mu 0 3 125 217 139
 		f 3 -385 194 -196
-		mu 0 3 139 108 141
+		mu 0 3 139 218 141
 		f 3 169 385 -195
 		mu 0 3 127 128 142
 		f 3 -386 196 -198
@@ -1732,19 +1734,19 @@ createNode mesh -n "sleighShapeOrig" -p "sleigh";
 		f 4 -118 445 446 -433
 		mu 0 4 95 100 195 188
 		f 4 -112 444 447 -446
-		mu 0 4 100 101 196 195
+		mu 0 4 100 219 196 195
 		f 4 -106 448 449 -445
-		mu 0 4 101 102 197 196
+		mu 0 4 220 221 197 196
 		f 4 -100 450 451 -449
-		mu 0 4 102 103 198 197
+		mu 0 4 222 223 198 197
 		f 4 -94 452 453 -451
-		mu 0 4 103 104 199 198
+		mu 0 4 224 225 199 198
 		f 4 -82 442 455 -455
 		mu 0 4 17 11 194 200
 		f 4 -88 454 456 -453
-		mu 0 4 104 17 200 199
+		mu 0 4 226 17 200 199
 		f 4 -431 457 459 -459
-		mu 0 4 91 90 202 201
+		mu 0 4 227 228 202 201
 		f 4 -434 462 463 -458
 		mu 0 4 187 188 204 203
 		f 4 -436 458 466 -466
@@ -3955,15 +3957,15 @@ createNode mesh -n "pTorusShape1" -p "pTorus1";
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "1897185A-42F3-FC11-98E1-8BBA67777253";
-	setAttr -s 2 ".lnk";
-	setAttr -s 2 ".slnk";
+	rename -uid "0A63EFDA-4B63-6001-A757-BBA8EB99689D";
+	setAttr -s 4 ".lnk";
+	setAttr -s 4 ".slnk";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "0D462DF1-41A3-DDE1-467A-A398E2B7C09F";
+	rename -uid "565DE489-450B-5E7B-2FDA-11A588245F01";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "05F9B937-4B15-2003-8B44-A2818E8B2BC2";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "E522EF9A-4BDB-F604-DE16-C7BCEF849CB1";
+	rename -uid "0366C65F-42A2-1DF5-3CF3-A89E82BAA04F";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "4BD9C1D2-4222-D6AB-EAA9-2B93820EB11C";
 	setAttr ".g" yes;
@@ -4071,6 +4073,24 @@ createNode groupParts -n "groupParts2";
 	rename -uid "CEF04746-4006-C86A-C787-F7A41FBE8482";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "vtx[*]";
+createNode lambert -n "lambert2";
+	rename -uid "D947FE6A-41B5-2DC1-7290-899E4BB732B7";
+	setAttr ".c" -type "float3" 0.53899997 0.070714362 0.061985001 ;
+createNode shadingEngine -n "lambert2SG";
+	rename -uid "DBA07847-479C-AAE4-D539-779D0DDF5E3B";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo1";
+	rename -uid "12260A94-4A28-32E0-9BDD-33A7740042D9";
+createNode lambert -n "lambert3";
+	rename -uid "2B59EDFB-4D57-0494-94F6-DB9EF58C6828";
+	setAttr ".c" -type "float3" 0.354 0.18778373 0.083897993 ;
+createNode shadingEngine -n "lambert3SG";
+	rename -uid "8955D7E5-4922-69EC-CF16-ACACB8AAB74B";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo2";
+	rename -uid "5C229128-47DC-9FBA-6544-27B52983DD06";
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -4081,15 +4101,14 @@ select -ne :hardwareRenderingGlobals;
 		 0 0 0 0 ;
 	setAttr ".fprt" yes;
 select -ne :renderPartition;
-	setAttr -s 2 ".st";
+	setAttr -s 4 ".st";
 select -ne :renderGlobalsList1;
 select -ne :defaultShaderList1;
-	setAttr -s 4 ".s";
+	setAttr -s 6 ".s";
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
-	setAttr -s 3 ".dsm";
 	setAttr ".ro" yes;
 select -ne :initialParticleSE;
 	setAttr ".ro" yes;
@@ -4098,8 +4117,6 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "bend1.og[0]" "sleighShape.i";
 connectAttr "bend1GroupId.id" "sleighShape.iog.og[0].gid";
 connectAttr "bend1Set.mwc" "sleighShape.iog.og[0].gco";
@@ -4112,8 +4129,12 @@ connectAttr "bend1.lb" "bend1HandleShape.lb";
 connectAttr "bend1.hb" "bend1HandleShape.hb";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "lambert3SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "lambert3SG.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr "bend1GroupParts.og" "bend1.ip[0].ig";
@@ -4132,8 +4153,18 @@ connectAttr "sleighShape.iog.og[1]" "tweakSet1.dsm" -na;
 connectAttr "tweak1.msg" "tweakSet1.ub[0]";
 connectAttr "sleighShapeOrig.w" "groupParts2.ig";
 connectAttr "groupId2.id" "groupParts2.gi";
+connectAttr "lambert2.oc" "lambert2SG.ss";
+connectAttr "sled1.iog" "lambert2SG.dsm" -na;
+connectAttr "lambert2SG.msg" "materialInfo1.sg";
+connectAttr "lambert2.msg" "materialInfo1.m";
+connectAttr "lambert3.oc" "lambert3SG.ss";
+connectAttr "sleighShape.iog" "lambert3SG.dsm" -na;
+connectAttr "lambert3SG.msg" "materialInfo2.sg";
+connectAttr "lambert3.msg" "materialInfo2.m";
+connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
+connectAttr "lambert3SG.pa" ":renderPartition.st" -na;
+connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
+connectAttr "lambert3.msg" ":defaultShaderList1.s" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
-connectAttr "sled1.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "sleighShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pTorusShape1.iog" ":initialShadingGroup.dsm" -na;
 // End of sleds.ma
