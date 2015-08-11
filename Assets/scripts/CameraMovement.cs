@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour {
 		float xDis = player1.position.x + player2.position.x ; 
 		float midX = xDis * 0.5f + forwardX;
 		if (xDis <= 10f ){
-			Debug.Log( "local x,y,z:" + transform.localPosition.x + "," + transform.localPosition.y + "," + transform.localPosition.z);
+			//Debug.Log( "local x,y,z:" + transform.localPosition.x + "," + transform.localPosition.y + "," + transform.localPosition.z);
 			transform.position = Vector3.Lerp( transform.localPosition, new Vector3 (midX, transform.position.y, transform.position.z), camMoveSpeed);
 		} else {
 
@@ -27,6 +27,7 @@ public class CameraMovement : MonoBehaviour {
 	public void ResetGame () {
 		Application.LoadLevel (Application.loadedLevel);
 		Time.timeScale = 1f;
+		Debug.Log("DICKS");
 	}
 
 }
