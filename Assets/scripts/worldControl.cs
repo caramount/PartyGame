@@ -4,15 +4,24 @@ using UnityEngine.UI;
 
 public class worldControl : MonoBehaviour {
 	public GameObject box;
+	public Transform snowball;
+	public Transform stage; //terrain of the level
 	private Rigidbody boxPhys;
 	public float pushForce;
 	private int pushDelayCount = 0;
 	private bool tilted = false;
 	private Vector3 snowballDest;
+	public float snowballSpeed;
 	public int pushDelayTime = 200;
 	public float tiltForce;
 	public float returnForce;
-	
+
+	private GameObject snowballX;
+	private GameObject snowballZ;
+	public float ballSpawnOffsetX;
+	public float ballSpawnOffsetZ;
+
+
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
@@ -22,6 +31,24 @@ public class worldControl : MonoBehaviour {
 		RaycastHit rayHit = new RaycastHit();
 		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetMouseButtonDown(0)){
 			snowballDest = rayHit.point;
+			if(snowballX == null && snowballZ == null){
+				snowballX = Instantiate (snowball,new Vector3(stage.position.x - ballSpawnOffsetX,
+				                                              stage.position.y + 1f,
+				                                              snowballDest.z),
+				                         Quaternion.identity);
+				snowballZ = Instantiate (snowball,new Vector3(snowballDest.x,
+				                                              stage.position.y + 1f,
+				                                              stage.position.z + ballSpawnOffsetZ),
+				                         Quaternion.identity);
+			}
+		}
+		if(snowballX != null){
+			if(snowballX.transform.position.x > (stage.position.x + ballSpawnOffsetX)){
+				Destroy (snowballX.gameObject)
+			}
+			if(snowballZ.transform.position.z > (stage.position.z - ballSpawnOffsetZ)){
+				Destroy (snowballZ.gameObject)
+			}
 			//check x or z position, if above a certain number, Destroy
 		}
 	}
