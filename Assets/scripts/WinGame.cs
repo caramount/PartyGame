@@ -14,7 +14,7 @@ public class WinGame : MonoBehaviour {
 	void SomeoneWinTheGame () {
 		 
 		winScrn.SetActive(true);
-		winText.text = winner + " Win!";
+		winText.text = winner + " Wins!";
 		Time.timeScale = 0f;	
 	}
 	
