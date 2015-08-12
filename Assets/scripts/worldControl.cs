@@ -4,53 +4,81 @@ using UnityEngine.UI;
 
 public class worldControl : MonoBehaviour {
 	public GameObject box;
-	public Transform snowball;
 	public Transform stage; //terrain of the level
+	public Camera playerCam;
 	private Rigidbody boxPhys;
 	public float pushForce;
 	private int pushDelayCount = 0;
 	private bool tilted = false;
-	private Vector3 snowballDest;
-	public float snowballSpeed;
 	public int pushDelayTime = 200;
 	public float tiltForce;
 	public float returnForce;
-
+	public GameObject snowball;
 	private GameObject snowballX;
 	private GameObject snowballZ;
 	public float ballSpawnOffsetX;
 	public float ballSpawnOffsetZ;
+	private Vector3 snowballDest;
+	public float snowballSpeed;
+	public Transform player;
 
 
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
 
+	void OnDrawGizmos(){
+		Gizmos.color = Color.white;
+		Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
+		ray.direction *= 1000f;
+		Gizmos.DrawRay(ray);
+	}
+
 	void Update(){
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
 		RaycastHit rayHit = new RaycastHit();
-		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetMouseButtonDown(0)){
+		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetKeyDown (KeyCode.Space)){
 			snowballDest = rayHit.point;
-			if(snowballX == null && snowballZ == null){
-				snowballX = Instantiate (snowball,new Vector3(stage.position.x - ballSpawnOffsetX,
-				                                              stage.position.y + 1f,
-				                                              snowballDest.z),
-				                         Quaternion.identity);
-				snowballZ = Instantiate (snowball,new Vector3(snowballDest.x,
-				                                              stage.position.y + 1f,
-				                                              stage.position.z + ballSpawnOffsetZ),
-				                         Quaternion.identity);
+			Vector3 snowballSpawnX = new Vector3(-120f, 19f, snowballDest.z);
+			Vector3 snowballSpawnZ = new Vector3(snowballDest.x, 19f, 50f);
+			Debug.DrawLine (playerCam.transform.position,snowballSpawnX,Color.yellow,1f);
+			if(snowballX == null || snowballZ == null){
+				//separate X and Z
+				snowballX = (GameObject) 
+					GameObject.Instantiate (snowball, snowballSpawnX, Quaternion.identity);
+				snowballZ = (GameObject) 
+					GameObject.Instantiate (snowball, snowballSpawnZ, Quaternion.identity);
 			}
 		}
 		if(snowballX != null){
-			if(snowballX.transform.position.x > (stage.position.x + ballSpawnOffsetX)){
-				Destroy (snowballX.gameObject)
-			}
-			if(snowballZ.transform.position.z > (stage.position.z - ballSpawnOffsetZ)){
-				Destroy (snowballZ.gameObject)
-			}
 			//check x or z position, if above a certain number, Destroy
+			if(snowballX.transform.position.x > 150f){
+				Destroy (snowballX.gameObject);
+			}
+			snowballX.transform.position += Vector3.right * snowballSpeed;
 		}
+
+		if(snowballZ != null){
+			if(snowballZ.transform.position.z < -100f){
+				Destroy (snowballZ.gameObject);
+			}
+			snowballZ.transform.position += Vector3.back * snowballSpeed;
+		}
+
+		//move player
+		if(Input.GetKey (KeyCode.RightArrow)){
+			player.position += Vector3.right;
+		}
+		if(Input.GetKey (KeyCode.LeftArrow)){
+			player.position += Vector3.left;
+		}
+		if(Input.GetKey (KeyCode.DownArrow)){
+			player.position += Vector3.back;
+		}
+		if(Input.GetKey (KeyCode.UpArrow)){
+			player.position += Vector3.forward;
+		}
+
 	}
 
 	void FixedUpdate () {
