@@ -46,11 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SlowDown.cs" />
      <Compile Include="Assets\scripts\CameraMovement.cs" />
      <Compile Include="Assets\scripts\GameController.cs" />
      <Compile Include="Assets\scripts\IceCollision.cs" />
      <Compile Include="Assets\scripts\MenuScript.cs" />
+     <Compile Include="Assets\scripts\SlowDown.cs" />
      <Compile Include="Assets\scripts\TestScript.cs" />
      <Compile Include="Assets\scripts\VehicleControl.cs" />
      <Compile Include="Assets\scripts\WinGame.cs" />
