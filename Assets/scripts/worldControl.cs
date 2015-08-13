@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class worldControl : MonoBehaviour {
 	public GameObject box; //the parent object that holds all the parts of the terrain
 	public Transform stage; //SAME OBJECT as "box"
-	public Transform player; //the player gameobject
+	//public Transform player; //the player gameobject
 	public Camera playerCam; //the camera that follows the player around
 	private Rigidbody boxPhys;
 
@@ -43,52 +43,52 @@ public class worldControl : MonoBehaviour {
 		RaycastHit rayHit = new RaycastHit();
 		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetKeyDown (KeyCode.Space)){
 			snowballDest = rayHit.point;
-			Vector3 snowballSpawnX = new Vector3(0f, 0.5f, Vector3.Distance(playerCam.transform.position,
-			                                                                snowballDest));	
-			snowballSpawnX = playerCam.ViewportToWorldPoint(snowballSpawnX);
-			snowballSpawnX.z = snowballDest.z;
-			snowballSpawnX.y = ballSpawnY;
-			Vector3 snowballSpawnZ = new Vector3(snowballDest.x,19f,ballSpawnZ);
-			if(snowballX == null){
-				snowballX = (GameObject) 
-					GameObject.Instantiate (snowball, snowballSpawnX, Quaternion.identity);
-			}
+			//Vector3 snowballSpawnX = new Vector3(0f, 0.5f, Vector3.Distance(playerCam.transform.position,
+			//                                                                snowballDest));	
+			//snowballSpawnX = playerCam.ViewportToWorldPoint(snowballSpawnX);
+			//snowballSpawnX.z = snowballDest.z;
+			//snowballSpawnX.y = ballSpawnY;
+			Vector3 snowballSpawnZ = new Vector3(snowballDest.x,ballSpawnY,ballSpawnZ);
+			//if(snowballX == null){
+			//	snowballX = (GameObject) 
+			//		GameObject.Instantiate (snowball, snowballSpawnX, Quaternion.identity);
+			//}
 			if(snowballZ == null){
 				snowballZ = (GameObject) 
 					GameObject.Instantiate (snowball, snowballSpawnZ, Quaternion.identity);
 			}
 		}
-		if(snowballX != null){
-			//Destroy is x position is at right edge of camera
-			Vector3 snowballDestroyPointX = 
-				new Vector3(1f,0.5f, Vector3.Distance(playerCam.transform.position,snowballDest));
-			if(snowballX.transform.position.x > playerCam.ViewportToWorldPoint(snowballDestroyPointX).x){
-				Destroy (snowballX.gameObject);
-			}
-			snowballX.transform.position += Vector3.right * snowballSpeed;
-		}
+		//if(snowballX != null){
+		//	//Destroy is x position is at right edge of camera
+		//	Vector3 snowballDestroyPointX = 
+		//		new Vector3(1f,0.5f, Vector3.Distance(playerCam.transform.position,snowballDest));
+		//	if(snowballX.transform.position.x > playerCam.ViewportToWorldPoint(snowballDestroyPointX).x){
+		//		Destroy (snowballX.gameObject, 5f);
+		//	}
+		//	snowballX.transform.position += Vector3.right * snowballSpeed;
+		//}
 
 		if(snowballZ != null){
 			//Destroy if z position is past stage
 			if(snowballZ.transform.position.z < ballDestroyZ){
-				Destroy (snowballZ.gameObject);
+				Destroy (snowballZ.gameObject, 5f);
 			}
 			snowballZ.transform.position += Vector3.back * snowballSpeed;
 		}
 
 		//move player, for testing only
-		if(Input.GetKey (KeyCode.RightArrow)){
-			player.position += Vector3.right;
-		}
-		if(Input.GetKey (KeyCode.LeftArrow)){
-			player.position += Vector3.left;
-		}
-		if(Input.GetKey (KeyCode.DownArrow)){
-			player.position += Vector3.back;
-		}
-		if(Input.GetKey (KeyCode.UpArrow)){
-			player.position += Vector3.forward;
-		}
+		//if(Input.GetKey (KeyCode.RightArrow)){
+		//	player.position += Vector3.right;
+		//}
+		//if(Input.GetKey (KeyCode.LeftArrow)){
+		//	player.position += Vector3.left;
+		//}
+		//if(Input.GetKey (KeyCode.DownArrow)){
+		//	player.position += Vector3.back;
+		//}
+		//if(Input.GetKey (KeyCode.UpArrow)){
+		//	player.position += Vector3.forward;
+		//}
 
 	}
 
