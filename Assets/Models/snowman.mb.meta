@@ -73,6 +73,7 @@ ModelImporter:
     2300038: pSphere1
     2300040: pSphere2
     2300042: pSphere3
+    2300044: //RootNode
     3300000: pCone1
     3300002: pCylinder1
     3300004: pCylinder10
@@ -95,6 +96,7 @@ ModelImporter:
     3300038: pSphere1
     3300040: pSphere2
     3300042: pSphere3
+    3300044: //RootNode
     4300000: pSphere1
     4300002: pSphere2
     4300004: pSphere3
@@ -117,6 +119,7 @@ ModelImporter:
     4300038: pCylinder16
     4300040: pCylinder17
     4300042: pCylinder18
+    4300044: polySurface1
     9500000: //RootNode
   materials:
     importMaterials: 1

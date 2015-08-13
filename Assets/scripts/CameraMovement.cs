@@ -27,7 +27,6 @@ public class CameraMovement : MonoBehaviour {
 	public void ResetGame () {
 		Application.LoadLevel (Application.loadedLevel);
 		Time.timeScale = 1f;
-		Debug.Log("DICKS");
 	}
 
 }

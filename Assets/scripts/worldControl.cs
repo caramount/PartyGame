@@ -3,27 +3,93 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class worldControl : MonoBehaviour {
-	public GameObject box;
+	public GameObject box; //the parent object that holds all the parts of the terrain
+	public Transform stage; //SAME OBJECT as "box"
+	public Transform player; //the player gameobject
+	public Camera playerCam; //the camera that follows the player around
 	private Rigidbody boxPhys;
-	public float pushForce;
+
+	public float pushForce; //the force that pushes players when you left-click
 	private int pushDelayCount = 0;
+
+	public int pushDelayTime = 200; //how long terrain player has to wait before he can push again
+	public float tiltForce; //force with which terrain tilts
+	public float returnForce; //controls how slowly terrain returns to flat
 	private bool tilted = false;
+
+	public GameObject snowball; //snowball prefab
+	private GameObject snowballX; //horizontal snowball
+	private GameObject snowballZ; //vertical snowball
+	public float ballSpawnZ; //z at which ball spawns, used for snowballZ ONLY
+	public float ballSpawnY; //y at which both balls spawn
+	public float ballDestroyZ; //z at which ball self-destructs, used for snowballZ ONLY
+	public float snowballSpeed; //speed at which snowballs travel
 	private Vector3 snowballDest;
-	public int pushDelayTime = 200;
-	public float tiltForce;
-	public float returnForce;
-	
+
+
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
 
+//	void OnDrawGizmos(){
+//		Gizmos.color = Color.white;
+//		Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
+//		ray.direction *= 1000f;
+//		Gizmos.DrawRay(ray);
+//	}
+
 	void Update(){
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
 		RaycastHit rayHit = new RaycastHit();
-		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetMouseButtonDown(0)){
+		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetKeyDown (KeyCode.Space)){
 			snowballDest = rayHit.point;
-			//check x or z position, if above a certain number, Destroy
+			Vector3 snowballSpawnX = new Vector3(0f, 0.5f, Vector3.Distance(playerCam.transform.position,
+			                                                                snowballDest));	
+			snowballSpawnX = playerCam.ViewportToWorldPoint(snowballSpawnX);
+			snowballSpawnX.z = snowballDest.z;
+			snowballSpawnX.y = ballSpawnY;
+			Vector3 snowballSpawnZ = new Vector3(snowballDest.x,19f,ballSpawnZ);
+			if(snowballX == null){
+				snowballX = (GameObject) 
+					GameObject.Instantiate (snowball, snowballSpawnX, Quaternion.identity);
+			}
+			if(snowballZ == null){
+				snowballZ = (GameObject) 
+					GameObject.Instantiate (snowball, snowballSpawnZ, Quaternion.identity);
+			}
 		}
+		if(snowballX != null){
+			//Destroy is x position is at right edge of camera
+			Vector3 snowballDestroyPointX = 
+				new Vector3(1f,0.5f, Vector3.Distance(playerCam.transform.position,snowballDest));
+			if(snowballX.transform.position.x > playerCam.ViewportToWorldPoint(snowballDestroyPointX).x){
+				Destroy (snowballX.gameObject);
+			}
+			snowballX.transform.position += Vector3.right * snowballSpeed;
+		}
+
+		if(snowballZ != null){
+			//Destroy if z position is past stage
+			if(snowballZ.transform.position.z < ballDestroyZ){
+				Destroy (snowballZ.gameObject);
+			}
+			snowballZ.transform.position += Vector3.back * snowballSpeed;
+		}
+
+		//move player, for testing only
+		if(Input.GetKey (KeyCode.RightArrow)){
+			player.position += Vector3.right;
+		}
+		if(Input.GetKey (KeyCode.LeftArrow)){
+			player.position += Vector3.left;
+		}
+		if(Input.GetKey (KeyCode.DownArrow)){
+			player.position += Vector3.back;
+		}
+		if(Input.GetKey (KeyCode.UpArrow)){
+			player.position += Vector3.forward;
+		}
+
 	}
 
 	void FixedUpdate () {
