@@ -8,16 +8,20 @@ public class CameraMovement : MonoBehaviour {
 	public float forwardX; // adjust how far the camera can look forward (go ahead) in front of the 2 players
 	public float camMoveSpeed;
 
-	Vector3 destination;
+	Vector3 camAng;
+
+	void Start () {
+		camAng = transform.forward;
+	}
 
 	void Update () {
-		float xDis = player1.position.x + player2.position.x ; 
-		float midX = xDis * 0.5f + forwardX;
-		if (xDis <= 10f ){
-			//Debug.Log( "local x,y,z:" + transform.localPosition.x + "," + transform.localPosition.y + "," + transform.localPosition.z);
-			transform.position = Vector3.Lerp( transform.localPosition, new Vector3 (midX, transform.position.y, transform.position.z), camMoveSpeed);
+		float xDis = Vector3.Distance (player1.position, player2.position); 
+		float midX = ( player1.position.x + player2.position.x )  * 0.5f;
+		if ( xDis >= 15f ){
+			//transform.position = Vector3.Lerp( transform.localPosition, new Vector3 (midX, transform.position.y, transform.position.z), camMoveSpeed);
+			transform.position = Vector3.Lerp ( transform.localPosition,  new Vector3 (midX, 0f, 0f) + ( - camAng * xDis * 0.8f ), camMoveSpeed);
 		} else {
-
+			transform.position = Vector3.Lerp( transform.localPosition, new Vector3 (midX, transform.position.y, transform.position.z), camMoveSpeed);
 		}
 
 
