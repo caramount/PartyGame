@@ -41,7 +41,7 @@ public class worldControl : MonoBehaviour {
 	void Update(){
 		Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
 		RaycastHit rayHit = new RaycastHit();
-		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetKeyDown (KeyCode.Space)){
+		if(Physics.Raycast (ray, out rayHit, 1000f) && Input.GetKeyDown (KeyCode.Mouse1)){
 			snowballDest = rayHit.point;
 			//Vector3 snowballSpawnX = new Vector3(0f, 0.5f, Vector3.Distance(playerCam.transform.position,
 			//                                                                snowballDest));	
@@ -127,7 +127,7 @@ public class worldControl : MonoBehaviour {
 			tiltedRight = true;
 			xRotation = 360 - xRotation;
 		}
-		xRotation = Mathf.Clamp(xRotation, 0f, 10f);
+		xRotation = Mathf.Clamp(xRotation, 0f, 15f);
 		if (tiltedRight) 
 			xRotation = 360 - xRotation;
 		transform.rotation = Quaternion.Euler (new Vector3(xRotation,0f,0f)); 
