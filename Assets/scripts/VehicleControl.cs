@@ -16,37 +16,37 @@ public class VehicleControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.W))
 		{
 			p1body.AddForce(transform.forward * moveStrength);
 		}
-		if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.S))
 		{
 			p1body.AddForce(-transform.forward * moveStrength);
 		}
-		if (Input.GetKeyDown(KeyCode.O))
+		if (Input.GetKeyDown(KeyCode.A))
 		{
 			p1body.AddForce(-transform.right * moveStrength);
 		}
-		if (Input.GetKeyDown(KeyCode.P))
+		if (Input.GetKeyDown(KeyCode.D))
 		{
 			p1body.AddForce(transform.right * moveStrength);
 		}
 		if (twoCharacters)
 		{
-			if (Input.GetKeyDown(KeyCode.F))
+			if (Input.GetKeyDown(KeyCode.I))
 			{
 				p2body.AddForce(transform.forward * moveStrength);
 			}
-			if (Input.GetKeyDown(KeyCode.V))
+			if (Input.GetKeyDown(KeyCode.K))
 			{
 				p2body.AddForce(-transform.forward * moveStrength);
 			}
-			if (Input.GetKeyDown(KeyCode.N))
+			if (Input.GetKeyDown(KeyCode.J))
 			{
 				p2body.AddForce(-transform.right * moveStrength);
 			}
-			if (Input.GetKeyDown(KeyCode.M))
+			if (Input.GetKeyDown(KeyCode.L))
 			{
 				p2body.AddForce(transform.right * moveStrength);
 			}

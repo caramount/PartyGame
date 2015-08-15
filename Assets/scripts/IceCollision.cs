@@ -34,7 +34,7 @@ public class IceCollision : MonoBehaviour {
 
 	IEnumerator FreezePlayer(Collider c)
 	{
-		GameObject ice;
+		//GameObject ice;
 
 		// Make Ice Active
 		if ( c.transform.name == "P1" ) 
