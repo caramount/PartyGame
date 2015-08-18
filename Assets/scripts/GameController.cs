@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public Text timer;
-	private float time = 60f;
+	private float time = 31f;
 	private int roundTime;
 
 	public Text winText; //assign the win text to winText in the Inspector (find the winText in Canvas-EndPanel)

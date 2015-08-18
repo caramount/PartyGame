@@ -6,6 +6,9 @@ public class IceCollision : MonoBehaviour {
 	public GameObject P1Ice;
 	public GameObject P2Ice;
 
+	public GameObject P1;
+	public GameObject P2;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -31,14 +34,18 @@ public class IceCollision : MonoBehaviour {
 
 	IEnumerator FreezePlayer(Collider c)
 	{
+		//GameObject ice;
+
 		// Make Ice Active
 		if ( c.transform.name == "P1" ) 
 		{
 			P1Ice.SetActive(true);
+			//ice = (GameObject)Instantiate(P1Ice, P1.transform.position, Quaternion.identity);
 		} 
-		else if ( c.transform.name == "P2" ) 
+		else //if ( c.transform.name == "P2" ) 
 		{
 			P2Ice.SetActive(true);
+			//ice = (GameObject)Instantiate(P2Ice, P2.transform.position, Quaternion.identity);
 		}
 
 		Rigidbody rbody = c.attachedRigidbody;
@@ -48,7 +55,9 @@ public class IceCollision : MonoBehaviour {
 							RigidbodyConstraints.FreezePositionY |
 							RigidbodyConstraints.FreezeRotationX |
 							RigidbodyConstraints.FreezeRotationY;
-		yield return new WaitForSeconds(4f);
+		//Debug.Log("about to wait!");
+		yield return new WaitForSeconds(2f);
+		//Debug.Log("I'm done waiting!");
 		// Reset constraints to what they were before
 		rbody.constraints = RigidbodyConstraints.None;
 		rbody.constraints = RigidbodyConstraints.FreezeRotationX | 
@@ -57,5 +66,7 @@ public class IceCollision : MonoBehaviour {
 		// Remove Ice
 		if (P1Ice.activeInHierarchy) {P1Ice.SetActive(false);}
 		else {P2Ice.SetActive(false);}
+		//Debug.Log("I should destroy iCE!");
+		//Destroy(ice);
 	}
 }
