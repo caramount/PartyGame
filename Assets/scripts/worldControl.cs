@@ -27,6 +27,10 @@ public class worldControl : MonoBehaviour {
 	private Vector3 snowballDest;
 
 
+	public AudioSource scrollUpAudio;
+	public AudioSource scrollDownAudio;
+	public AudioSource snowBallAudio;
+
 	void Start () {
 		boxPhys = box.GetComponent<Rigidbody>();
 	}
@@ -56,6 +60,7 @@ public class worldControl : MonoBehaviour {
 			if(snowballZ == null){
 				snowballZ = (GameObject) 
 					GameObject.Instantiate (snowball, snowballSpawnZ, Quaternion.identity);
+					snowBallAudio.Play ();
 			}
 		}
 		//if(snowballX != null){
@@ -74,6 +79,7 @@ public class worldControl : MonoBehaviour {
 				Destroy (snowballZ.gameObject, 5f);
 			}
 			snowballZ.transform.position += Vector3.back * snowballSpeed;
+
 		}
 
 		//move player, for testing only
@@ -114,9 +120,11 @@ public class worldControl : MonoBehaviour {
 			}
 			if (Input.GetAxis ("Mouse ScrollWheel") > 0){
 				boxPhys.AddTorque (-tiltForce,0f,0f,ForceMode.VelocityChange);
+				scrollUpAudio.Play ();
 			}
 			if(Input.GetAxis ("Mouse ScrollWheel") < 0){
 				boxPhys.AddTorque (tiltForce,0f,0f,ForceMode.VelocityChange);
+				scrollDownAudio.Play ();
 			}
 		}
 
