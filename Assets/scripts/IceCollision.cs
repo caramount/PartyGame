@@ -9,6 +9,8 @@ public class IceCollision : MonoBehaviour {
 	public GameObject P1;
 	public GameObject P2;
 
+	public AudioSource hitAudio;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -47,7 +49,7 @@ public class IceCollision : MonoBehaviour {
 			P2Ice.SetActive(true);
 			//ice = (GameObject)Instantiate(P2Ice, P2.transform.position, Quaternion.identity);
 		}
-
+		hitAudio.Play ();
 		Rigidbody rbody = c.attachedRigidbody;
 		// Freeze position
 		rbody.constraints = RigidbodyConstraints.FreezePositionX | 
